@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Spring-Boot Básico</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<link rel="icon" href="/image/favicon.png" />
+
+	<!-- Bootstrap core CSS -->
+	<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
+	
+	<!-- Custom styles for this template -->
+	<link href="/css/style.css" rel="stylesheet" />
+</head>
+<body>
+	<header th:replace="fragments/header :: cabecalho">
+		<div>header</div>
+	</header>
+	
+	<div class="layout-main">
+		<aside>
+			<nav th:replace="fragments/sidebar :: sidebar">
+				<span>menu</span>
+			</nav>
+		</aside>
+		
+		<section layout:fragment="corpo">
+			<div>conteudo</div>
+		</section>
+		
+	</div>
+	
+	<footer th:replace="fragments/footer :: rodape">
+		<div>footer</div>
+	</footer>
+	
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	    
+		var url = '';
+		$('button[id*="btn_"]').click(function(){ // chama quando qqr button seja clicad
+			url = "http://localhost:8080/" + $(this).attr('id').split("_")[1]; //att a url de exclusão
+			//separando o que vem depois do _ no id do button
+		});
+		
+		$('#ok_confirm').click(function(){
+			document.location.href = url;//da request na url de exclusão
+		});
+		
+		$('#ok_confirm2').click(function(){
+			var id = document.getElementById("cmbFuncionario").value;
+			var data = document.getElementById("dataDemissao").value;
+			document.location.href = "http://localhost:8080/funcionarios/demitir?id="+id+"&data="+data;
+		});
+		
+		$(function() {
+			$('[data-toggle="popover"]').popover();
+		});
+		
+		$(document).ready(function(){
+		    $(".navbar-toggle").click(function(){
+		        $(".sidebar").toggleClass("sidebar-open");
+		    })
+		});
+		
+		function checarCamposData(){
+			var entrada = document.getElementById("txtEntrada").value;
+			var saida = document.getElementById("txtSaida").value;
+			
+			
+			if(entrada != "" && saida != ""){
+				document.location.href= "http://localhost:8080/funcionarios/buscar/data?entrada="
+						+entrada+"&saida="+saida+"";
+			}else{
+				document.getElementById("buscaDataErro").style.display = "block";
+			}
+			
+		}
+		
+		function mostrarCampoData(){
+			var campo = document.getElementById("dataDemissao");
+			var label = document.getElementById("lblDataDemissao");
+			
+			if(document.getElementById("cmbFuncionario").value != ""){
+				campo.style.display = "block";
+				label.style.display = "block"
+			}else{
+				campo.style.display = "none";
+				label.style.display = "none";
+			}
+		}
+
+	</script>
+
+</body>
+</html>

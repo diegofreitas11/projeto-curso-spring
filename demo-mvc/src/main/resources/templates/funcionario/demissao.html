@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html layout:decorate="~{Layout}">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+	  <section class="layout-content" layout:fragment = "corpo">
+	 	<div class="page-header">
+	            <nav class="navbar navbar-expand-md navbar-top bg-light">
+	                <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+	                    <ul class="navbar-nav">
+	                        <li class="nav-item active">
+	                            <i class="oi oi-caret-right"></i>
+	                            <span>Registrar Demissão</span>
+	                        </li>
+	                    </ul>
+	                </div>
+	                
+	            </nav>
+	        </div>
+	  	<div class="container" id="cadastro">
+	  	<div th:replace="fragments/alert"></div>
+	  	<form method="get">
+	  	<div class="form-row">
+	  		<div class="form-group col-md-6">
+	  			<label for="cmbFuncionario">Funcionário</label>
+		  		<select id="cmbFuncionario" class="form-control" 
+		  			onchange="mostrarCampoData()">
+	                <option value="">Selecione...</option>
+	                <option th:each="f : ${funcionarios}" th:value="${f.id}" 
+	                	th:text="${f.nome}">Administração</option>
+		        </select>
+	        </div>
+	        <div class="form-group col-md-6">
+                 <label for="dataDemissao" id="lblDataDemissao" style="display: none;">Data de Demissão</label>
+                 <input type="date" class="form-control" id="dataDemissao" style="display: none;"/>
+                 <div class="invalid-feedback">
+
+	             </div>
+	      	</div>
+	        <button type="button" class="btn btn-primary btn-sm" 
+	        data-toggle="modal" data-target="#myModal2">Confirmar</button>
+	  	</div>
+	  	</form>
+	  	<div th:replace="fragments/modal :: modal2"></div>
+	  	</div>
+	  	
+	  	
+	  </section>
+</body>
+</html>		
